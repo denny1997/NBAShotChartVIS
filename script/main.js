@@ -9,12 +9,12 @@ window.onresize = myResize;
  */
 var isMac = navigator.platform.toUpperCase().indexOf('MAC')>=0;
 var globFunc = {
-    infoView: {},
-    rankView: {},
-    gameView: {},
+    // infoView: {},
+    // rankView: {},
+    // gameView: {},
     shotView: {},
     menuView: {},
-    compareView: {}
+    // compareView: {}
 };
 var globData = {
     globTeamList: {},
@@ -162,8 +162,8 @@ function myComparePlayer(src) {
 	if (!globData.singleSelectMode) {
 		if (!globData.compareMode) {
 			globData.compareMode = true;
-			globFunc.gameView.hide();
-			globFunc.rankView.hide();
+			// globFunc.gameView.hide();
+			// globFunc.rankView.hide();
 			globFunc.shotView.hide();
 			src.innerHTML = 'Single Player';
 			// select player
@@ -172,10 +172,10 @@ function myComparePlayer(src) {
 			}
 		} else {
 			globData.compareMode = false;
-			globFunc.compareView.hide();
-			globFunc.infoView.update();
-			globFunc.gameView.show();
-			globFunc.rankView.show();
+			// globFunc.compareView.hide();
+			// globFunc.infoView.update();
+			// globFunc.gameView.show();
+			// globFunc.rankView.show();
 			globFunc.shotView.show();
 			src.innerHTML = 'Compare';
 			// close selection
@@ -222,11 +222,11 @@ function myOnload ()
     // load global class instance, one for each view
     // -------------------------------------------------------
 	globFunc.menuView = new MenuView();
-	globFunc.infoView = new InfoView();
-    globFunc.rankView = new RankView();
-    globFunc.gameView = new GameView();
+	// globFunc.infoView = new InfoView();
+    // globFunc.rankView = new RankView();
+    // globFunc.gameView = new GameView();
     globFunc.shotView = new ShotView();
-    globFunc.compareView = new CompareView();
+    // globFunc.compareView = new CompareView();
 
     // -------------------------------------------------------
     // load team list
@@ -268,12 +268,12 @@ function myOnload ()
             globFunc.menuView.update();
 	        globFunc.menuView.hide();
 	        // initialize objects
-	        globFunc.infoView.init(600);
-	        globFunc.rankView.init(500);
-	        globFunc.gameView.init(300);
+	        // globFunc.infoView.init(600);
+	        // globFunc.rankView.init(500);
+	        // globFunc.gameView.init(300);
 	        globFunc.shotView.init(700);
-	        globFunc.compareView.init();
-	        globFunc.compareView.hide();
+	        // globFunc.compareView.init();
+	        // globFunc.compareView.hide();
             // DEBUG HERE
 	        // if (!debugMuteAll) {}
             // --------------------
@@ -314,22 +314,22 @@ function MainReload(reloadData)
 			globData.currPlayerData = player;
 			// [0]
 			// -- Info View
-			if (!globFunc.infoView.hidden) { globFunc.infoView.update(); }
-			if (!globFunc.rankView.hidden) { globFunc.rankView.update(); }
-			if (!globFunc.gameView.hidden) { globFunc.gameView.update(); }
+			// if (!globFunc.infoView.hidden) { globFunc.infoView.update(); }
+			// if (!globFunc.rankView.hidden) { globFunc.rankView.update(); }
+			// if (!globFunc.gameView.hidden) { globFunc.gameView.update(); }
 			if (!globFunc.shotView.hidden) { globFunc.shotView.update(); }
 		});
 	} else {
-		if (!globFunc.rankView.hidden) { globFunc.rankView.update(); }
-		if (!globFunc.gameView.hidden) { globFunc.gameView.update(); }
+		// if (!globFunc.rankView.hidden) { globFunc.rankView.update(); }
+		// if (!globFunc.gameView.hidden) { globFunc.gameView.update(); }
 		if (!globFunc.shotView.hidden) { globFunc.shotView.update(); }
 		// comparsion
 		if (globData.compareMode) {
 			d3.json('data/playerList/' + globData.comparePlayerName + '.json', function (errorCompPlayer, playerComp) {
 				if (errorCompPlayer) throw errorCompPlayer;
 				globData.comparePlayerData = playerComp;
-				globFunc.infoView.compare();
-				globFunc.compareView.show();
+				// globFunc.infoView.compare();
+				// globFunc.compareView.show();
 				// globFunc.compareView.update();
 			});
 		}
@@ -341,10 +341,10 @@ function MainReload(reloadData)
  */
 function myResize() {
 	if (!globFunc.menuView.hidden) { globFunc.menuView.resize(); }
-	if (!globFunc.infoView.hidden) { globFunc.infoView.resize(); }
-	if (!globFunc.rankView.hidden) { globFunc.rankView.resize(); }
-	if (!globFunc.gameView.hidden) { globFunc.gameView.resize(); }
+	// if (!globFunc.infoView.hidden) { globFunc.infoView.resize(); }
+	// if (!globFunc.rankView.hidden) { globFunc.rankView.resize(); }
+	// if (!globFunc.gameView.hidden) { globFunc.gameView.resize(); }
 	if (!globFunc.shotView.hidden) { globFunc.shotView.resize(); }
-	if (!globFunc.compareView.hidden && globData.compareMode) { globFunc.compareView.resize(); }
+	// if (!globFunc.compareView.hidden && globData.compareMode) { globFunc.compareView.resize(); }
 }
 

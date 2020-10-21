@@ -309,6 +309,10 @@ path.rank-radial-OD {
     text-anchor: middle;
     font-family: 'Bungee', cursive;
 }
+#player-name {
+    text-anchor: middle;
+    font-family: 'Bungee', cursive;
+}
 .tip-ShotView  {
     font-weight: bold;
     line-height: 120%;

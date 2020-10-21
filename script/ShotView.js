@@ -28,7 +28,12 @@ function ShotView() {
         // creat SVG elements
 	    self.hidden = false;
 	    self.div = d3.select('#shotChart');
-        self.div.selectAll('*').remove(); // clean up everything
+		self.div.selectAll('*').remove(); // clean up everything
+		self.div.append('button')
+			.attr('onclick', 'myChangePlayer(this)')
+			.attr('id', 'changePlayerBtn')
+			.style('display','none')
+		    .text('Change Player');
         self.svg = self.div.append('svg');
         self.svg.append('image');
 	    self.grpPlot = self.svg.append('g').attr('id','shotPlot');
@@ -54,7 +59,10 @@ function ShotView() {
         self.svg
             .attr('width',  self.svgW)
             .attr('height', self.svgH);
-        self.svg.append('text').attr('id','title-ShotView');
+		self.svg.append('text').attr('id','title-ShotView');
+		self.info = self.svg.append('g').attr('id','player-info');
+		self.info.append("image").attr("id", "player-photo");
+		self.info.append("text").attr("id", "player-name");
     };
 
     /**
@@ -141,7 +149,52 @@ function ShotView() {
 		    .attr('x', self.svgW/2)
 		    .attr('y', 40 * ratio)
 		    .attr('font-size', 20 * ratio)
-		    .text(attrTitle);
+			.text(attrTitle);
+
+		var buttonH = 30  * ratio,
+		    buttonW = 100 * ratio,
+		    buttonYOff = 5 * ratio,
+		    buttonXOff = 5 * ratio,
+		    buttonFontSize = 10  * ratio;
+		self.div.select('#changePlayerBtn')
+		    .style('margin-top',  buttonYOff + 'px')
+		    .style('margin-left', buttonXOff + 'px')
+		    .style('width',  buttonW + 'px')
+		    .style('height', buttonH + 'px')
+		    .style('font-size', buttonFontSize + 'px')
+		    .style('display',null);
+
+		var nameSize = 16 * ratio, // player name font size
+			nameYoff = 50 * ratio; // player name font height
+	    // --- text parameters
+        var textSize   = 12 * ratio,
+            textHeight = 16 * ratio,
+	        textYoff  = 10 * ratio,  // space abvoe the main text
+            textXoff  = 100 * ratio; // space between divide left border and main text left border
+	    // --- image parameters
+        var imageW = 300 * ratio, // profile picture width
+            imageH = 180 * ratio, // profile picture height
+	        imageXoff = (textXoff - imageW)/2,
+            imageYoff = 10 * ratio;    // space between profile picture and divide border
+
+		var id = player.info.PERSON_ID;
+		var url = 'data/playerProfile/' + id + '.png';
+		var img = self.info.select("#player-photo")
+			.attr('x',imageXoff + self.margin.left)
+	        .attr('y',imageYoff)
+            .attr('width',  imageW)
+			.attr('height', imageH)
+        if (self.fileExists(url)) {
+            img.attr("xlink:href", url);
+        } else {
+            img.attr("xlink:href", 'data/playerProfile/NoFound.png');
+        }
+
+		self.info.select("#player-name")
+			.attr('x', textXoff/2 + self.margin.left)
+			.attr('y', imageH + nameYoff)
+			.style('font-size', 20 * ratio)
+			.text(player.info.FIRST_NAME + ' ' + player.info.LAST_NAME);
 	    // draw hexgon
 	    self.svg.selectAll('defs').remove();
 	    self.svg.append('defs').append("clipPath").attr("id", "clip")
@@ -434,4 +487,17 @@ function ShotView() {
 		self.init(self.svgH);
 		self.update();
 	};
+
+	/**
+     * function to check if the icon file exist
+     * @param url path to the file
+     * @returns {boolean} if the file exists
+     */
+    self.fileExists = function  (url)
+    {
+        var http = new XMLHttpRequest();
+        http.open('HEAD', url, false); //< make sure async is true
+        http.send();
+        return http.status != 404;
+    };
 }
