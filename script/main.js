@@ -11,8 +11,9 @@ var isMac = navigator.platform.toUpperCase().indexOf('MAC')>=0;
 var globFunc = {
     // infoView: {},
     // rankView: {},
-    // gameView: {},
-    shotView: {},
+	// gameView: {},
+	shotViewCircle: {},
+    // shotView: {},
     menuView: {},
     // compareView: {}
 };
@@ -164,7 +165,7 @@ function myComparePlayer(src) {
 			globData.compareMode = true;
 			// globFunc.gameView.hide();
 			// globFunc.rankView.hide();
-			globFunc.shotView.hide();
+			// globFunc.shotView.hide();
 			src.innerHTML = 'Single Player';
 			// select player
 			if (globFunc.menuView.hidden) {
@@ -176,7 +177,7 @@ function myComparePlayer(src) {
 			// globFunc.infoView.update();
 			// globFunc.gameView.show();
 			// globFunc.rankView.show();
-			globFunc.shotView.show();
+			// globFunc.shotView.show();
 			src.innerHTML = 'Compare';
 			// close selection
 			if (!globFunc.menuView.hidden) {
@@ -224,8 +225,9 @@ function myOnload ()
 	globFunc.menuView = new MenuView();
 	// globFunc.infoView = new InfoView();
     // globFunc.rankView = new RankView();
-    // globFunc.gameView = new GameView();
-    globFunc.shotView = new ShotView();
+	// globFunc.gameView = new GameView();
+	globFunc.shotViewCircle = new ShotViewCircle();
+    // globFunc.shotView = new ShotView();
     // globFunc.compareView = new CompareView();
 
     // -------------------------------------------------------
@@ -270,8 +272,9 @@ function myOnload ()
 	        // initialize objects
 	        // globFunc.infoView.init(600);
 	        // globFunc.rankView.init(500);
-	        // globFunc.gameView.init(300);
-	        globFunc.shotView.init(700);
+			// globFunc.gameView.init(300);
+			globFunc.shotViewCircle.init(700);
+	        // globFunc.shotView.init(700);
 	        // globFunc.compareView.init();
 	        // globFunc.compareView.hide();
             // DEBUG HERE
@@ -317,12 +320,14 @@ function MainReload(reloadData)
 			// if (!globFunc.infoView.hidden) { globFunc.infoView.update(); }
 			// if (!globFunc.rankView.hidden) { globFunc.rankView.update(); }
 			// if (!globFunc.gameView.hidden) { globFunc.gameView.update(); }
-			if (!globFunc.shotView.hidden) { globFunc.shotView.update(); }
+			if (!globFunc.shotViewCircle.hidden) { globFunc.shotViewCircle.update(); }
+			// if (!globFunc.shotView.hidden) { globFunc.shotView.update(); }
 		});
 	} else {
 		// if (!globFunc.rankView.hidden) { globFunc.rankView.update(); }
 		// if (!globFunc.gameView.hidden) { globFunc.gameView.update(); }
-		if (!globFunc.shotView.hidden) { globFunc.shotView.update(); }
+		if (!globFunc.shotViewCircle.hidden) { globFunc.shotViewCircle.update(); }
+		// if (!globFunc.shotView.hidden) { globFunc.shotView.update(); }
 		// comparsion
 		if (globData.compareMode) {
 			d3.json('data/playerList/' + globData.comparePlayerName + '.json', function (errorCompPlayer, playerComp) {
@@ -344,7 +349,7 @@ function myResize() {
 	// if (!globFunc.infoView.hidden) { globFunc.infoView.resize(); }
 	// if (!globFunc.rankView.hidden) { globFunc.rankView.resize(); }
 	// if (!globFunc.gameView.hidden) { globFunc.gameView.resize(); }
-	if (!globFunc.shotView.hidden) { globFunc.shotView.resize(); }
+	// if (!globFunc.shotView.hidden) { globFunc.shotView.resize(); }
 	// if (!globFunc.compareView.hidden && globData.compareMode) { globFunc.compareView.resize(); }
 }
 

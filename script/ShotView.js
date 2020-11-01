@@ -59,10 +59,10 @@ function ShotView() {
         self.svg
             .attr('width',  self.svgW)
             .attr('height', self.svgH);
-		self.svg.append('text').attr('id','title-ShotView');
-		self.info = self.svg.append('g').attr('id','player-info');
-		self.info.append("image").attr("id", "player-photo");
-		self.info.append("text").attr("id", "player-name");
+		// self.svg.append('text').attr('id','title-ShotView');
+		// self.info = self.svg.append('g').attr('id','player-info');
+		// self.info.append("image").attr("id", "player-photo");
+		// self.info.append("text").attr("id", "player-name");
     };
 
     /**
@@ -97,7 +97,8 @@ function ShotView() {
         // to remember variables for resizing
         var SeasonType = 'RegularSeason';
         var rowpoint = [];
-        for (var y = yearFrom; y <= yearTo; ++y) {
+        // for (var y = yearFrom; y <= yearTo; ++y) {
+		for (var y = 2015; y <= 2015; ++y) {
             if (player.season[SeasonType].hasOwnProperty(y)) {
                 if (player.season[SeasonType][y].hasOwnProperty('shotchart')) {
                     player.season[SeasonType][y].shotchart.Details.row.forEach(function (d) {
@@ -179,52 +180,66 @@ function ShotView() {
 
 		var id = player.info.PERSON_ID;
 		var url = 'data/playerProfile/' + id + '.png';
-		var img = self.info.select("#player-photo")
-			.attr('x',imageXoff + self.margin.left)
-	        .attr('y',imageYoff)
-            .attr('width',  imageW)
-			.attr('height', imageH)
-        if (self.fileExists(url)) {
-            img.attr("xlink:href", url);
-        } else {
-            img.attr("xlink:href", 'data/playerProfile/NoFound.png');
-        }
+		// var img = self.info.select("#player-photo")
+		// 	.attr('x',imageXoff + self.margin.left)
+	    //     .attr('y',imageYoff)
+        //     .attr('width',  imageW)
+		// 	.attr('height', imageH)
+        // if (self.fileExists(url)) {
+        //     img.attr("xlink:href", url);
+        // } else {
+        //     img.attr("xlink:href", 'data/playerProfile/NoFound.png');
+        // }
 
-		self.info.select("#player-name")
-			.attr('x', textXoff/2 + self.margin.left)
-			.attr('y', imageH + nameYoff)
-			.style('font-size', 20 * ratio)
-			.text(player.info.FIRST_NAME + ' ' + player.info.LAST_NAME);
+		// self.info.select("#player-name")
+		// 	.attr('x', textXoff/2 + self.margin.left)
+		// 	.attr('y', imageH + nameYoff)
+		// 	.style('font-size', 20 * ratio)
+		// 	.text(player.info.FIRST_NAME + ' ' + player.info.LAST_NAME);
 	    // draw hexgon
-	    self.svg.selectAll('defs').remove();
-	    self.svg.append('defs').append("clipPath").attr("id", "clip")
-		    .append("rect").attr("class", "mesh")
-		    .attr('x', -imgOX)
-		    .attr('y', -imgOY)
-		    .attr("width", imgW)
-		    .attr("height", imgH);
-        self.grpPlot
+	    // self.svg.selectAll('defs').remove();
+	    // self.svg.append('defs').append("clipPath").attr("id", "clip")
+		//     .append("rect").attr("class", "mesh")
+		//     .attr('x', -imgOX)
+		//     .attr('y', -imgOY)
+		//     .attr("width", imgW)
+		//     .attr("height", imgH);
+        // self.grpPlot
+	    //     .attr('transform', 'translate(' + (imgX + imgOX) + ',' + (imgY+imgOY) + ')')
+	    //     .selectAll(".hexagon").remove();
+        // self.grpPlot
+	    //     .attr("clip-path", "url(#clip)")
+	    //     .selectAll(".hexagon").data(hexbin(rowpoint))
+		//     .enter().append("path")
+        //     .attr("class", "hexagon")
+        //     .attr("d", function(d) { return hexbin.hexagon(radius(Math.min(d.length, maxSize))); })
+        //     .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+        //     .style('fill', function(d) {
+        //     	var totalFGPCT = d3.mean(d, function (dd) { return +dd.data[15] });
+        //     	return FGPCTscale(totalFGPCT);
+        //     })
+	    //     .on('mouseover', function (d) {
+	    //     	mytip.show(d);
+		//         d3.select(this).classed('highlight', true);
+	    //     })
+	    //     .on('mouseout',  function (d) {
+	    //     	mytip.hide();
+		//         d3.select(this).classed('highlight', false);
+		//     });
+		self.grpPlot
 	        .attr('transform', 'translate(' + (imgX + imgOX) + ',' + (imgY+imgOY) + ')')
-	        .selectAll(".hexagon").remove();
-        self.grpPlot
-	        .attr("clip-path", "url(#clip)")
-	        .selectAll(".hexagon").data(hexbin(rowpoint))
-		    .enter().append("path")
-            .attr("class", "hexagon")
-            .attr("d", function(d) { return hexbin.hexagon(radius(Math.min(d.length, maxSize))); })
-            .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
-            .style('fill', function(d) {
-            	var totalFGPCT = d3.mean(d, function (dd) { return +dd.data[15] });
-            	return FGPCTscale(totalFGPCT);
-            })
-	        .on('mouseover', function (d) {
-	        	mytip.show(d);
-		        d3.select(this).classed('highlight', true);
-	        })
-	        .on('mouseout',  function (d) {
-	        	mytip.hide();
-		        d3.select(this).classed('highlight', false);
-	        });
+	        .selectAll("circle").remove();
+		let circle = self.grpPlot.selectAll('cricle').data(rowpoint).enter().append('circle')
+		console.log(rowpoint)
+		circle.attr('fill', d => { return d['data'][5] == 'Missed Shot' ? 'red': 'green'})
+			.attr('cx', d => {
+				return d[0]
+			})
+			.attr('cy', d => {
+				return d[1]
+			})
+			.attr('r', 5)
+
         // legend
 	    self.grpLegend.selectAll('*').remove();
 	    var groupBarLegend = self.grpLegend.append('g');
