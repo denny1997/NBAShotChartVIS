@@ -9,39 +9,49 @@
 </head>
 <body>
 
-<div id='aboutus'><a href="https://wilsoncernwq.github.io/NBAstatsVIS/infoPage.html">About the Project</a></div>
+<h2 id="aboutus">NBA Statistic Visualization</h2>
 <div id="divMenuView" style="display: none">
-    <span>Team</span>
-    <select class="dropdown" id="queryTeam" onchange="myQueryTeam(this)"></select>
-    <span>Position</span>
-    <select class="dropdown" id="queryPosition" onchange="myQueryPosition(this)">
+
+  <table style="width:30%">
+    <tr>
+      <th><span>Team</span></th>
+      <th><select class="dropdown" id="queryTeam" onchange="myQueryTeam(this)"></select></th>
+    </tr>
+    <tr>
+      <th><span>Position</span></th>
+      <th><select class="dropdown" id="queryPosition" onchange="myQueryPosition(this)">
         <option value="Guard">Guard</option>
         <option value="Center">Center</option>
         <option value="Forward">Forward</option>
         <option selected value="all">All</option>
-    </select>
-    <span>Year From</span>
-    <select class="dropdown" id="queryYearFrom" onchange="myQueryYearFrom(this)">
-    </select>
-    <span>Year To</span>
-    <select class="dropdown" id="queryYearTo" onchange="myQueryYearTo(this)">
-    </select>
-    <span>All Star</span>
-    <select class="dropdown" id="queryAllStar" onchange="myQueryAllStar(this)">
+    </select></th>
+    </tr>
+    <tr>
+      <th><span>Year From</span></th>
+      <th><select class="dropdown" id="queryYearFrom" onchange="myQueryYearFrom(this)">
+      </select></th>
+    </tr>
+    <tr>
+      <th><span>Year To</span></th>
+      <th><select class="dropdown" id="queryYearTo" onchange="myQueryYearTo(this)">
+      </select></th>
+    </tr>
+    <tr>
+      <th><span>All Star</span></th>
+      <th><select class="dropdown" id="queryAllStar" onchange="myQueryAllStar(this)">
         <option value="all">All</option>
         <option selected value="yes">Yes</option>
         <option value="no">No</option>
-    </select>
-    <form id="queryForm" onsubmit="return false;">
-        <input class="dropdown" value="Hint Player Name"
-               onclick="myClearForm(this)"
-               onkeyup="myQueryAutoHintSubmit(this)"
-        />
-    </form>
-    <svg id="svgMenuView">
-        <g id="groupMenuViewRect"></g>
-        <g id="groupMenuViewText"></g>
-    </svg>
+    </select></th>
+    </tr>
+  </table>
+
+  <HR>
+  
+  <svg id="svgMenuView">
+      <g id="groupMenuViewRect"></g>
+      <g id="groupMenuViewText"></g>
+  </svg>
 </div>
 <!-- <div class="view-box" id="divInfoView"></div> -->
 <!-- <div class="view-block" id="divRankView"></div>
