@@ -304,7 +304,7 @@ function ShotViewCircle() {
 			    .classed('legend-ShotView', true)
 			    .attr('x', imgX + imgW - 45 * ratio)
 			    .attr('y', imgY + imgH - 35 * ratio)
-			    .text('Field Goals Attempted')
+			    .text('Field Goals Missed')
 			    .style('text-anchor', 'end')
 			    .style('font-size', 12 * ratio);
 		    // hexgon
